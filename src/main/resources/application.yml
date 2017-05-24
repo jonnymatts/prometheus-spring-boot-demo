@@ -1,0 +1,10 @@
+management.security.enabled: false
+
+# Move actuator metrics so they dont clash with prometheus
+endpoints.metrics.id: actuator_metrics
+endpoints.metrics.sensitive: false
+endpoints.metrics.enabled: true
+
+endpoints.prometheus.id: metrics
+endpoints.prometheus.sensitive: false
+endpoints.prometheus.enabled: true

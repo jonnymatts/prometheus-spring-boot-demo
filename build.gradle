@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath group: "org.springframework.boot", name: "spring-boot-gradle-plugin", version: "1.5.3.RELEASE"
+    }
+}
+
+plugins {
+    id "com.palantir.docker" version "0.11.0"
+}
+
+apply plugin: 'org.springframework.boot'
+
+springBoot {
+    layout = 'ZIP'
+}
+
+bootRepackage {
+    classifier = 'spring-boot'
+}
+
+
+group 'com.jonnymatts.prometheus.demo'
+version '0.1'
+
+ext {
+    spring_boot_version = '1.5.3.RELEASE'
+    prometheus_client_version = '0.0.22'
+}
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${spring_boot_version}"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${spring_boot_version}"
+    compile group: 'io.prometheus', name: 'simpleclient_hotspot', version: "${prometheus_client_version}"
+    compile group: 'io.prometheus', name: 'simpleclient_servlet', version: "${prometheus_client_version}"
+    compile group: 'io.prometheus', name: 'simpleclient_spring_boot', version: "${prometheus_client_version}"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.7.0'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.8.9'
+}
+
+docker {
+    dockerfile "${projectDir}/Dockerfile"
+    name "jonnymatts/prometheus-spring-boot-demo:${version}"
+    files "${projectDir}/build/libs"
+}
