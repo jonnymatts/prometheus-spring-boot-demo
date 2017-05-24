@@ -35,7 +35,7 @@ public class HttpRequestMetricFilterTest {
         when(request.getMethod()).thenReturn("GET");
         when(request.getServletPath()).thenReturn("/path");
         when(response.getStatus()).thenReturn(200);
-        when(counter.labels("GET", "/path", "200")).thenReturn(counterChild);
+        when(counter.labels("get", "path", "200")).thenReturn(counterChild);
 
         filter.doFilter(request, response, chain);
 

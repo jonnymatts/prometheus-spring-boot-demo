@@ -17,9 +17,9 @@ public class HttpRequestMetricFilter implements Filter {
 
     public HttpRequestMetricFilter() {
         this.counter = Counter.build()
-                .name("http_request_total")
+                .name("http_requests_total")
                 .help("Total HTTP requests handled")
-                .labelNames("method", "route", "status_code")
+                .labelNames("method", "handler", "code")
                 .create()
                 .register();
     }
@@ -29,12 +29,16 @@ public class HttpRequestMetricFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        chain.doFilter(request, response);
+
         final RequestFacade requestFacade = (RequestFacade) request;
         final ResponseFacade responseFacade = (ResponseFacade) response;
 
-        chain.doFilter(request, response);
-
-        counter.labels(requestFacade.getMethod(), requestFacade.getServletPath(), String.valueOf(responseFacade.getStatus())).inc();
+        counter.labels(
+                requestFacade.getMethod().toLowerCase(),
+                requestFacade.getServletPath().substring(1),
+                String.valueOf(responseFacade.getStatus())
+        ).inc();
     }
 
     @Override

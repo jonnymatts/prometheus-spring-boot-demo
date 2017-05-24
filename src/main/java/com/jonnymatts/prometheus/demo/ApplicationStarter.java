@@ -1,6 +1,5 @@
 package com.jonnymatts.prometheus.demo;
 
-import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.hotspot.DefaultExports;
 import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
