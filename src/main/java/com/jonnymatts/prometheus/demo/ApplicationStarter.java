@@ -1,5 +1,6 @@
 package com.jonnymatts.prometheus.demo;
 
+import com.jonnymatts.prometheus.http.spring.EnableHttpRequestMetrics;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.hotspot.DefaultExports;
 import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
@@ -7,7 +8,6 @@ import io.prometheus.client.spring.boot.EnableSpringBootMetricsCollector;
 import io.prometheus.client.spring.web.EnablePrometheusTiming;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 @EnableSpringBootMetricsCollector
 @EnablePrometheusEndpoint
 @EnablePrometheusTiming
+@EnableHttpRequestMetrics
 @SpringBootApplication
 public class ApplicationStarter {
 
@@ -52,10 +53,5 @@ public class ApplicationStarter {
                 skyAppMetricGauge()
                         .labels(DATABASE_CONNECTION_METRIC_NAME, "databaseUrl=jdbc://random-database-url")
         );
-    }
-
-    @Bean
-    public FilterRegistrationBean httpMetricFilter() {
-        return new FilterRegistrationBean(new HttpRequestMetricFilter());
     }
 }

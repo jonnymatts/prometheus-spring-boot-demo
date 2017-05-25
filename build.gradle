@@ -36,10 +36,12 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
+    compile group: 'com.jonnymatts.prometheus', name: 'http-metrics-spring-boot', version: "0.1"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${spring_boot_version}"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${spring_boot_version}"
     compile group: 'io.prometheus', name: 'simpleclient_hotspot', version: "${prometheus_client_version}"
