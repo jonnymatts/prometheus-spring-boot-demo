@@ -24,7 +24,7 @@ bootRepackage {
 
 
 group 'com.jonnymatts.prometheus.demo'
-version '0.2'
+version '0.3'
 
 ext {
     spring_boot_version = '1.5.3.RELEASE'
@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.jonnymatts.prometheus', name: 'http-metrics-spring-boot', version: "0.1"
+    compile group: 'com.jonnymatts.prometheus', name: 'http-metrics-spring-boot', version: "0.2"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${spring_boot_version}"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${spring_boot_version}"
     compile group: 'io.prometheus', name: 'simpleclient_hotspot', version: "${prometheus_client_version}"
